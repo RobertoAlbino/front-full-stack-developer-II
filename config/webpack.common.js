@@ -30,7 +30,7 @@ exports.config = {
         test: /\.html$/,
         loader: 'raw-loader'
       }, {
-        test: /\.(eot|svg)$/,
+        test: /\.(eot|svg|ico)$/,
         loader: 'file-loader?name=assets/[name].[hash:20].[ext]',
       }, {
         test: /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)$/,
