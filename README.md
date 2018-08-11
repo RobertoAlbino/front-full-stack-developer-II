@@ -1,2 +1,1 @@
-# angularjs-webpack-boilerplate
-AngularJS com webpack e Bootstrap boilerplate
+# Projeto desenvolvido para o curso full stack developer 2
