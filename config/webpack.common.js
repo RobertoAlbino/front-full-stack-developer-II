@@ -3,6 +3,7 @@ const path = require('path');
 // plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 exports.config = {
   entry: {
@@ -11,6 +12,7 @@ exports.config = {
   output: {
     sourceMapFilename: '[name].map',
     chunkFilename: '[id].[hash:20].js',
+    path: path.resolve(__dirname, 'dist/static')
   },
   resolve: {
     alias: {
@@ -31,7 +33,7 @@ exports.config = {
         loader: 'raw-loader'
       }, {
         test: /\.(eot|svg|ico)$/,
-        loader: 'file-loader?name=assets/[name].[hash:20].[ext]',
+        loader: 'file-loader?name=assets/[name].[ext]',
       }, {
         test: /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)$/,
         loader: 'url-loader?name=assets/[name].[hash:20].[ext]&limit=10000',
@@ -63,7 +65,8 @@ exports.config = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default']
-    })    
+    }),
+    new CleanWebpackPlugin(['dist'], null),
   ],
   devServer: {
     stats: 'minimal',

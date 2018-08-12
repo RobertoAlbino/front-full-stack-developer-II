@@ -19107,6 +19107,7 @@ var _main = __webpack_require__(57);
 __webpack_require__(88);
 
 __webpack_require__(93);
+__webpack_require__(95);
 
 angular.bootstrap(document.body, [_main.name], { strictDi: true });
 
@@ -64794,6 +64795,12 @@ Popper.Defaults = Defaults;
 //# sourceMappingURL=popper.js.map
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(28)))
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "assets/favicon.ico";
 
 /***/ })
 /******/ ]);
