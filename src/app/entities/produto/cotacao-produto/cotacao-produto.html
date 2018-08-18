@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Iniciar cotação do produto</h4>
+</div>
+<div class="modal-body" id="modal-body">
+    <form>
+        <form-group>
+            <label for="nome">Código:</label>
+            <input class="form-control" type="text" ng-model="vm.cotacaoModel.cotacao.produto.id">
+        </form-group>
+        <form-group>
+            <label for="nome">Nome:</label>
+            <input class="form-control" type="text" ng-model="vm.cotacaoModel.cotacao.produto.nome">
+        </form-group>
+        <form-group>
+            <label for="nome">Data inicial de cotação:</label>
+            <input class="form-control" type="date" ng-model="vm.dataInicio">
+        </form-group>
+        <form-group>
+            <label for="nome">Data final de cotação:</label>
+            <input class="form-control" type="date" ng-model="vm.dataFinal">
+        </form-group>
+        <form-group>
+            <label for="nome">Quantidade:</label>
+            <input class="form-control" type="number" ng-model="vm.cotacaoModel.cotacao.quantidade">
+        </form-group>
+        <form-group>
+            <label>Fornecedores autorizados:</label>
+            <ui-select multiple ng-model="vm.listaFornecedores" on-remove="vm.removerFornecedor($item)"
+                refresh-delay="0">
+                <ui-select-match placeholder="Selecione o(s) fornecedores(s)">
+                    <span>{{$item.nome}}</span>
+                </ui-select-match>
+                <ui-select-choices repeat="fornecedor in vm.listaFornecedores | filter: {name: $select.search} track by fornecedor.id">
+                    <div ng-bind-html="fornecedor.nome | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </form-group>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger"  ng-click="$dismiss()">Sair</button>
+    <button type="button" class="btn btn-success" ng-click="vm.iniciarCotacao(vm.produto)">Iniciar cotação</button>
+</div>

@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Lances para o produto {{ vm.cotacao.produto.nome }}</h4>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="ibox-content wizard">
+        <div ng-style="{height: vm.gridOptions.getGridHeight()}" ui-grid="vm.gridOptions" class="grid text-center" ui-grid-pinning ui-grid-save-state
+            ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" ng-click="$dismiss()">Sair</button>
+</div>

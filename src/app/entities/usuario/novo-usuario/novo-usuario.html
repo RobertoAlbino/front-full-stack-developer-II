@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Cadastrar novo usuário</h4>
+</div>
+<div class="modal-body" id="modal-body">
+    <form>
+        <form-group>
+            <label>Perfil:</label>
+            <select class="form-control" ng-model="vm.usuario.perfil">
+                <option value="0">Usuário</option>
+                <option value="1">Fornecedor</option>
+            </select>
+        </form-group>
+        <form-group>
+            <label>Nome:</label>
+            <input class="form-control" type="text" ng-model="vm.usuario.nome">
+        </form-group>
+        <form-group>
+            <label>E-mail:</label>
+            <input class="form-control" type="email" ng-model="vm.usuario.email">
+        </form-group>
+        <form-group>
+            <label>Telefone:</label>
+            <input class="form-control" type="number" ng-model="vm.usuario.telefone">
+        </form-group>
+        <form-group>
+            <label>Senha:</label>
+            <input class="form-control" type="password" ng-model="vm.usuario.senha">
+        </form-group>
+        <form-group>
+            <label>Repetir senha:</label>
+            <input class="form-control" type="password" ng-model="vm.usuario.segundaSenha">
+        </form-group>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" ng-click="$dismiss()">Sair</button>
+    <button type="button" class="btn btn-success" ng-click="vm.cadastrarNovoUsuario()">Cadastrar</button>
+</div>

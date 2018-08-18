@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title"> {{ vm.operacao }} produto </h4>
+</div>
+<div class="modal-body" id="modal-body">
+    <form>
+        <form-group>
+            <label for="nome">Nome:</label>
+            <input class="form-control" type="text" ng-model="vm.produto.nome">
+        </form-group>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" ng-click="$dismiss()">Sair</button>
+    <button type="button" class="btn btn-success" ng-click="vm.cadastrarProduto(vm.produto)">{{ vm.operacao }}</button>
+</div>

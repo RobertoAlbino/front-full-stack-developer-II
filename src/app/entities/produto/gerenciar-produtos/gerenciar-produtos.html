@@ -1,0 +1,10 @@
+<div ng-controller="GerenciarProdutosController as vm" class="container">
+    <div ng-include="'app/entities/partials/menu-superior-usuario-partial.html'"></div>
+    <button style="margin-bottom: 5px" type="button" ng-click="vm.abrirModalProduto(null, false)" 
+        class="btn btn-block btn-primary">Novo produto</button>
+    <div class="ibox-content wizard">
+        <div ng-style="{height: vm.gridOptions.getGridHeight()}" ui-grid="vm.gridOptions" class="grid text-center" ui-grid-pinning ui-grid-save-state
+            ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-grouping>
+        </div>
+    </div>
+</div>
