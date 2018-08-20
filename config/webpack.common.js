@@ -16,9 +16,10 @@ exports.config = {
   },
   resolve: {
     alias: {
-      '@views': path.resolve(__dirname, './../src/app/views')
+      '@views': path.resolve(__dirname, './../src/app/views'),
+      '@node': path.resolve(__dirname, '../node_modules')
     }
-  },    
+  },
   module: {
     rules: [
       {

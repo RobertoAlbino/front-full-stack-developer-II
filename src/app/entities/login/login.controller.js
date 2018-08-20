@@ -1,18 +1,22 @@
 export default class LoginController {
 
-  constructor() {}
+  constructor($uibModal, $location, Restangular) {
+    this.$uibModal = $uibModal;
+    this.$location = $location;
+    this.Restangular = Restangular;
+  }
 
    logar() {
-    if (!vm.loginValido()) {
+    if (!this.loginValido()) {
       toastr.error("Nem todas as informações de login estão corretas.");
       return;
     }
-
-    var logar = Restangular.all("login/logar");
-    logar.post(vm.login).then(function (retornoLogin) {
+    
+    let logar = this.Restangular.all("login/logar");
+    logar.post(this.login).then((retornoLogin) => {
       if (retornoLogin.sucesso) {
-        vm.armazenarLocalmenteUsuarioLogado(retornoLogin);
-        retornoLogin.objeto.perfil === "USUARIO" ? $location.path('menu-usuario') : $location.path('menu-fornecedor');
+        this.armazenarLocalmenteUsuarioLogado(retornoLogin);
+        retornoLogin.objeto.perfil === "USUARIO" ? this.$location.path('menu-usuario') : this.$location.path('menu-fornecedor');
       } else {
         toastr.error(retornoLogin.mensagem);
       }
@@ -20,7 +24,7 @@ export default class LoginController {
   }
 
   loginValido() {
-    return vm.login.email || vm.login.senha ? true : false;
+    return this.login.email || this.login.senha ? true : false;
   }
 
   armazenarLocalmenteUsuarioLogado(retornoLogin) {
@@ -31,6 +35,5 @@ export default class LoginController {
 LoginController.$inject = [
   '$uibModal',
   '$location',
-  'Restangular',
-  'toastr'
+  'Restangular'
 ];

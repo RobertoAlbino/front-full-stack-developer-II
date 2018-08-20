@@ -1,8 +1,6 @@
-import { name } from './app/main.module';
+import { name } from './app/index.module';
 import './style.scss';
-
-require('jquery')
-require('bootstrap');
-require('./favicon.ico')
+import 'bootstrap';
+import './favicon.ico';
 
 angular.bootstrap(document.body, [name], { strictDi: true });
