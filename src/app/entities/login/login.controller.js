@@ -1,9 +1,10 @@
 export default class LoginController {
 
-  constructor($uibModal, $location, Restangular) {
+  constructor($uibModal, $location, Restangular, toastrService) {
     this.$uibModal = $uibModal;
     this.$location = $location;
     this.Restangular = Restangular;
+    this.toastrService = toastrService; 
   }
 
    logar() {
@@ -18,7 +19,7 @@ export default class LoginController {
         this.armazenarLocalmenteUsuarioLogado(retornoLogin);
         retornoLogin.objeto.perfil === "USUARIO" ? this.$location.path('menu-usuario') : this.$location.path('menu-fornecedor');
       } else {
-        toastr.error(retornoLogin.mensagem);
+        this.toastrService.erro(retornoLogin.mensagem);
       }
     });
   }
@@ -35,5 +36,6 @@ export default class LoginController {
 LoginController.$inject = [
   '$uibModal',
   '$location',
-  'Restangular'
+  'Restangular',
+  'toastrService'
 ];

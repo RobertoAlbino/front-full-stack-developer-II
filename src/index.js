@@ -1,6 +1,6 @@
-import { name } from './app/index.module';
+import module from './app/index.module';
 import './style.scss';
 import 'bootstrap';
 import './favicon.ico';
 
-angular.bootstrap(document.body, [name], { strictDi: true });
+angular.bootstrap(document.body, [ module ], { strictDi: true });

@@ -1,5 +1,5 @@
 export default function MainConfig(RestangularProvider) {
-    RestangularProvider.setBaseUrl('https://cota-easy-api.herokuapp.com/api/'); // Produção
+    RestangularProvider.setBaseUrl('https://cota-easy-api.herokuapp.com/api/');
     RestangularProvider.setDefaultHeaders({ "Content-Type": 'application/json' });
 }
 

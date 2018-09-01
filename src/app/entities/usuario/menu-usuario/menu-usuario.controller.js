@@ -1,11 +1,5 @@
-(function () {
-  'use strict';
+export default class MenuUsuarioController {
+  constructor() {}
+}
 
-  angular
-    .module('cotaEasy')
-    .controller('MenuUsuarioController', MenuUsuarioController);
-
-  MenuUsuarioController.$inject = [];
-
-  function MenuUsuarioController() {}
-})();
+MenuUsuarioController.$inject = [];
