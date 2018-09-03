@@ -6,7 +6,7 @@ export const menuUsuarioRoute = ($stateProvider, $urlRouterProvider) => {
       template: require('./menu-usuario.html'),
       controller: MenuUsuarioController,
       controllerAs: 'vm',
-      url: '/'
+      url: '/menu-usuario'
     });
 };
 menuUsuarioRoute.$inject = ['$stateProvider', '$urlRouterProvider'];
