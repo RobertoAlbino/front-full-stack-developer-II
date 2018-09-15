@@ -13,6 +13,9 @@ import toastrService from './services/toastr.service';
 import { loginRoute }  from './entities/login/login.route';
 import { menuUsuarioRoute } from './entities/usuario/menu-usuario/menu-usuario.route';
 
+// Views
+import { novoUsuario } from './entities/usuario/novo-usuario/menu-usuario.html';
+
 // Diretivas
 import directives from './directives/index';
 

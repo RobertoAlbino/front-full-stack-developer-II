@@ -1,12 +1,5 @@
-(function () {
-    'use strict';
-  
-    angular
-      .module('cotaEasy')
-      .controller('MenuFornecedorController', MenuFornecedorController);
-  
-      MenuFornecedorController.$inject = [];
-  
-    function MenuFornecedorController() {}
-  })();
-  
+export default class MenuFornecedorController {
+  constructor() {}
+}
+
+MenuFornecedorController.$inject = [];

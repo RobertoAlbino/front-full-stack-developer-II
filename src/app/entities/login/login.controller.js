@@ -31,6 +31,17 @@ export default class LoginController {
   armazenarLocalmenteUsuarioLogado(retornoLogin) {
     window.localStorage.setItem('usuarioLogado', JSON.stringify(retornoLogin.objeto.id));
   }
+
+  abrirModalCadastroUsuario() {
+    this.$uibModal.open({
+      ariaLabelledBy: 'Cadastro de usuário',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'app/entities/usuario/novo-usuario/novo-usuario.html',
+      controller: 'NovoUsuarioController',
+      controllerAs: 'vm',
+      size: 'md'
+    });
+  }
 }
 
 LoginController.$inject = [
