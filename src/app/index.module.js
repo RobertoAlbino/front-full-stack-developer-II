@@ -19,7 +19,7 @@ import directives from './directives/index';
 export default angular.module('app', [
       directives, 
       restangular, 
-      uiBootstrap, 
+      uiBootstrap,
       uiRouter
 ])
 .service('toastrService', toastrService)
