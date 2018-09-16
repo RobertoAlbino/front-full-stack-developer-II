@@ -1,43 +1,40 @@
-(function () {
-    'use strict';
-  
-    angular
-      .module('cotaEasy')
-      .controller('NovoProdutoController', NovoProdutoController);
-  
-    NovoProdutoController.$inject = [
-      '$uibModal',
-      '$uibModalInstance',
-      '$location',
-      'Restangular',
-      'toastr',
-      'isEdicao',
-      'entidadeProduto'
-    ];
-  
-    function NovoProdutoController($uibModal, $uibModalInstance, $location, Restangular, toastr, isEdicao, entidadeProduto) {
-      var vm = this;
-      vm.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
-      vm.operacao = !isEdicao ? "Cadastrar" : "Editar";
-      vm.isEdicao = isEdicao;
-      vm.produto = {
-        id: entidadeProduto ? entidadeProduto.id : 0,
-        nome: entidadeProduto ? entidadeProduto.nome : "",
-        cotado: entidadeProduto ? entidadeProduto.cotado : false,
-        usuario: entidadeProduto ? entidadeProduto.usuario : { id: vm.usuarioLogado }
-      }
+export default class NovoProdutoController {
 
-      vm.cadastrarProduto = function(produto) {
-        var produto = Restangular.all("produtos/cadastrarProduto");
-        produto.post(vm.produto).then(function(response) {
-          if (response.sucesso) {
-            toastr.success(vm.isEdicao ? "Produto atualizado com sucesso." : "Produto cadastrado com suceso.");
-            $uibModalInstance.close(true);
-          } else {
-            toastr.error(response.mensagem);
-          }
-        });
+  constructor($uibModalInstance, $location, Restangular, toastrService, isEdicao, entidadeProduto) {
+    this.$uibModalInstance = $uibModalInstance;
+    this.$location = $location;
+    this.Restangular = Restangular;
+    this.toastrService = toastrService;
+    this.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
+    this.operacao = !isEdicao ? "Cadastrar" : "Editar";
+    this.isEdicao = isEdicao;
+    this.produto = {
+      id: entidadeProduto ? entidadeProduto.id : 0,
+      nome: entidadeProduto ? entidadeProduto.nome : "",
+      cotado: entidadeProduto ? entidadeProduto.cotado : false,
+      usuario: entidadeProduto ? entidadeProduto.usuario : { id: this.usuarioLogado }
+    }  
+  }
+
+  cadastrarProduto(produto) {
+    let toastrService = this.toastrService;
+    let isEdicao = this.isEdicao;
+    let produtoCad = this.Restangular.all("produtos/cadastrarProduto");
+    produtoCad.post(this.produto).then((response) => {
+      if (response.sucesso) {
+        toastrService.sucesso(isEdicao ? "Produto atualizado com sucesso." : "Produto cadastrado com suceso.");
+        this.$uibModalInstance.close(true);
+      } else {
+        toastrService.erro(response.mensagem);
       }
-    }
-  })();
-  
+    });
+  }
+}
+NovoProdutoController.$inject = [
+  '$uibModalInstance',
+  '$location',
+  'Restangular',
+  'toastrService',
+  'isEdicao',
+  'entidadeProduto'
+];  

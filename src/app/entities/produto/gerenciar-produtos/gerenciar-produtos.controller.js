@@ -1,89 +1,17 @@
-(function () {
-    'use strict';
+import NovoProdutoController from '../novo-produto/novo-produto.controller';
 
-    angular
-        .module('cotaEasy')
-        .controller('GerenciarProdutosController', GerenciarProdutosController);
+export default class GerenciarProdutosController {
 
-    GerenciarProdutosController.$inject = [
-        '$uibModal',
-        'Restangular',
-        'toastr'
-    ];
-
-    function GerenciarProdutosController($uibModal, Restangular, toastr) {
-        var vm = this;
-        vm.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
-
-        vm.getAllProdutosByUsuario = function () {
-            var produtos = Restangular.all("produtos/getAllByUsuarioId");
-            produtos.post(vm.usuarioLogado).then(function (response) {
-                if (response.sucesso) {
-                    vm.gridOptions.data = response.objeto;
-                } else {
-                    toastr.error(response.mensagem);
-                }
-            });
-        }
-
-        vm.abrirModalProduto = function(entidadeProduto, isEdicao) {
-            $uibModal.open({
-                ariaLabelledBy: 'Cadastro de produto',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'app/entities/produto/novo-produto/novo-produto.html',
-                controller: 'NovoProdutoController',
-                controllerAs: 'vm',
-                size: 'md',
-                resolve: {
-                    entidadeProduto: function() {
-                        return entidadeProduto;
-                    },
-                    isEdicao: function() {
-                        return isEdicao;
-                    },
-                }
-            }).result.then(function() {
-                vm.getAllProdutosByUsuario();
-            });
-        }
-
-        vm.excluirProduto = function(idProduto) {
-            var produto = Restangular.all("produtos/deleteById");
-            produto.post(idProduto).then(function (response) {
-                if (response.sucesso) {
-                    vm.getAllProdutosByUsuario();
-                    toastr.success(response.mensagem);
-                } else {
-                    toastr.error(response.mensagem);
-                }
-            });
-        }
-
-        vm.abrirModalCotacao = function(produto) {
-            if (produto.cotado) {
-                toastr.error("O produto já está em cotação.");
-                return;
-            }
-            $uibModal.open({
-                ariaLabelledBy: 'Iniciar cotação',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'app/entities/produto/cotacao-produto/cotacao-produto.html',
-                controller: 'CotacaoProdutoController',
-                controllerAs: 'vm',
-                size: 'md',
-                resolve: {
-                    produto: function() {
-                        return produto;
-                    }
-                }
-            });
-        }
-
-        vm.gridOptions = {
-            data: vm.getAllProdutosByUsuario(),
+    constructor($uibModal, Restangular, toastrService) {
+        this.$uibModal = $uibModal;
+        this.Restangular = Restangular;
+        this.toastrService = toastrService;
+        this.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
+        this.gridOptions = {
+            data: this.getAllProdutosByUsuario(),
             enableFiltering: true,
             enableColumnMenus: false,
-            paginationPageSizes: [10, 25, 50, 100, 250, 500],
+            paginationPageSizes: [ 10, 25, 50, 100, 250, 500 ],
             columnDefs: [{                
                 name: 'Opções',
                 enableFiltering: false,
@@ -112,4 +40,74 @@
             }]
         }
     }
-})();
+
+    getAllProdutosByUsuario() {
+        let toastrService = this.toastrService;
+        let produtos = this.Restangular.all("produtos/getAllByUsuarioId");
+        produtos.post(this.usuarioLogado).then((response) => {
+            if (response.sucesso) {
+                this.gridOptions.data = response.objeto;
+            } else {
+                toastrService.erro(response.mensagem);
+            }
+        });
+    }
+
+    abrirModalProduto(entidadeProduto, isEdicao) {
+        this.$uibModal.open({
+            ariaLabelledBy: 'Cadastro de produto',
+            ariaDescribedBy: 'modal-body',
+            template: require('../novo-produto/novo-produto.html'),
+            controller: NovoProdutoController,
+            controllerAs: 'vm',
+            size: 'md',
+            resolve: {
+                entidadeProduto: () => {
+                    return this.entidadeProduto;
+                },
+                isEdicao: () => {
+                    return this.isEdicao;
+                },
+            }
+        }).result.then(() => {
+            this.getAllProdutosByUsuario();
+        });
+    }
+
+    excluirProduto(idProduto) {
+        let produto = this.Restangular.all("produtos/deleteById");
+        produto.post(idProduto).then((response) => {
+            if (response.sucesso) {
+                this.getAllProdutosByUsuario();
+                this.toastrService.sucesso(response.mensagem);
+            } else {
+                this.toastrService.erro(response.mensagem);
+            }
+        });
+    }
+
+    // vm.abrirModalCotacao = function(produto) {
+    //     if (produto.cotado) {
+    //         toastr.error("O produto já está em cotação.");
+    //         return;
+    //     }
+    //     $uibModal.open({
+    //         ariaLabelledBy: 'Iniciar cotação',
+    //         ariaDescribedBy: 'modal-body',
+    //         templateUrl: 'app/entities/produto/cotacao-produto/cotacao-produto.html',
+    //         controller: 'CotacaoProdutoController',
+    //         controllerAs: 'vm',
+    //         size: 'md',
+    //         resolve: {
+    //             produto: function() {
+    //                 return produto;
+    //             }
+    //         }
+    //     });
+    // }
+}
+GerenciarProdutosController.$inject = [
+    '$uibModal',
+    'Restangular',
+    'toastrService'
+];
