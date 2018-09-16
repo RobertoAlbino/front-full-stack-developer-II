@@ -18,13 +18,13 @@ export default class NovoUsuarioController {
       this.toastrService.erro("As senhas digitadas não são idênticas.");
       return;
     }
-
+    let toastrService = this.toastrService;
     let criarUsuario = this.Restangular.all("usuarios/criar");
-    criarUsuario.post(vm.usuario).then(function (retornoCadastro) {
-      retornoCadastro.sucesso ? this.toastrService.successo(retornoCadastro.mensagem) : this.toastrService.erro(retornoCadastro.mensagem);
+    criarUsuario.post(this.usuario).then((retornoCadastro) => {
+      retornoCadastro.sucesso ? toastrService.sucesso(retornoCadastro.mensagem) : toastrService.erro(retornoCadastro.mensagem);
     }),
     (error) => {
-        this.toastrService.erro(error);
+      toastrService.erro(error);
     };
   }
 

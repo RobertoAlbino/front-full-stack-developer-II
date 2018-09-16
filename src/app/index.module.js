@@ -12,6 +12,7 @@ import toastrService from './services/toastr.service';
 // Rotas da aplicação
 import { loginRoute }  from './entities/login/login.route';
 import { menuUsuarioRoute } from './entities/usuario/menu-usuario/menu-usuario.route';
+import { menuFornecedorRoute } from './entities/fornecedor/menu-fornecedor/menu-fornecedor.route';
 
 // Diretivas
 import directives from './directives/index';
@@ -26,4 +27,5 @@ export default angular.module('app', [
 .config(MainConfig)
 .config(loginRoute)
 .config(menuUsuarioRoute)
+.config(menuFornecedorRoute)
 .name;

@@ -4,5 +4,5 @@ import menuSuperiorFornecedorDirective from './menu-fornecedor/menu-fornecedor.d
 
 export default angular.module('directives', [])
     .directive('menuSuperiorUsuario', menuSuperiorUsuarioDirective)
-    .directive('menuSuperiorFornecedorDirective', menuSuperiorFornecedorDirective)
+    .directive('menuSuperiorFornecedor', menuSuperiorFornecedorDirective)
     .name;

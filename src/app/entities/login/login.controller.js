@@ -1,5 +1,4 @@
 import NovoUsuarioController from '../usuario/novo-usuario/novo-usuario.controller';
-import templateCadastroUsuario from '../usuario/novo-usuario/novo-usuario.html';
 
 export default class LoginController {
 
@@ -12,7 +11,7 @@ export default class LoginController {
 
   logar() {
     if (!this.loginValido()) {
-      this.toastrService.error("Nem todas as informações de login estão corretas.");
+      this.toastrService.erro("Nem todas as informações de login estão corretas.");
       return;
     }
     
@@ -40,10 +39,14 @@ export default class LoginController {
       animation: true,
       ariaLabelledBy: 'Cadastro de usuário',
       ariaDescribedBy: 'modal-body',
-      template: templateCadastroUsuario,
+      template: require('../usuario/novo-usuario/novo-usuario.html'),
       controller: NovoUsuarioController,
       controllerAs: 'vm',
-      size: 'md'
+      size: 'md',
+      resolve: {
+        Restangular: this.Restangular,
+        toastrService: this.toastrService
+      }
     });
   }
 }
