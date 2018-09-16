@@ -63,10 +63,10 @@ export default class GerenciarProdutosController {
             size: 'md',
             resolve: {
                 entidadeProduto: () => {
-                    return this.entidadeProduto;
+                    return entidadeProduto;
                 },
                 isEdicao: () => {
-                    return this.isEdicao;
+                    return isEdicao;
                 },
             }
         }).result.then(() => {

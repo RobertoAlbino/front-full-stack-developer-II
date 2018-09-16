@@ -20,7 +20,7 @@ export default class NovoProdutoController {
     let toastrService = this.toastrService;
     let isEdicao = this.isEdicao;
     let produtoCad = this.Restangular.all("produtos/cadastrarProduto");
-    produtoCad.post(this.produto).then((response) => {
+    produtoCad.post(produto).then((response) => {
       if (response.sucesso) {
         toastrService.sucesso(isEdicao ? "Produto atualizado com sucesso." : "Produto cadastrado com suceso.");
         this.$uibModalInstance.close(true);
