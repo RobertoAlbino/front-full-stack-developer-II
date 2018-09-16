@@ -1,15 +1,18 @@
+import NovoUsuarioController from '../usuario/novo-usuario/novo-usuario.controller';
+import templateCadastroUsuario from '../usuario/novo-usuario/novo-usuario.html';
+
 export default class LoginController {
 
   constructor($uibModal, $location, Restangular, toastrService) {
     this.$uibModal = $uibModal;
     this.$location = $location;
     this.Restangular = Restangular;
-    this.toastrService = toastrService; 
+    this.toastrService = toastrService;
   }
 
-   logar() {
+  logar() {
     if (!this.loginValido()) {
-      toastr.error("Nem todas as informações de login estão corretas.");
+      this.toastrService.error("Nem todas as informações de login estão corretas.");
       return;
     }
     
@@ -25,7 +28,7 @@ export default class LoginController {
   }
 
   loginValido() {
-    return this.login.email || this.login.senha ? true : false;
+    return this.login && this.login.email && this.login.senha ? true : false;
   }
 
   armazenarLocalmenteUsuarioLogado(retornoLogin) {
@@ -34,16 +37,16 @@ export default class LoginController {
 
   abrirModalCadastroUsuario() {
     this.$uibModal.open({
+      animation: true,
       ariaLabelledBy: 'Cadastro de usuário',
       ariaDescribedBy: 'modal-body',
-      templateUrl: 'app/entities/usuario/novo-usuario/novo-usuario.html',
-      controller: 'NovoUsuarioController',
+      template: templateCadastroUsuario,
+      controller: NovoUsuarioController,
       controllerAs: 'vm',
       size: 'md'
     });
   }
 }
-
 LoginController.$inject = [
   '$uibModal',
   '$location',

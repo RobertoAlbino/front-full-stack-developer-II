@@ -1,5 +1,6 @@
 export default class NovoUsuarioController {
-  constructor(Restangular, toastrService, uiBootstrap) {
+  
+  constructor(Restangular, toastrService) {
     this.Restangular = Restangular;
     this.toastrService = toastrService;
     this.usuario = {
@@ -34,6 +35,5 @@ export default class NovoUsuarioController {
 NovoUsuarioController.$inject = [
   'Restangular',
   'toastrService',
-  'uiBootstrap'
 ];
 
