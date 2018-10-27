@@ -1,51 +1,48 @@
-(function () {
-    'use strict';
+export default class CotacaoProdutoController {
   
-    angular
-      .module('cotaEasy')
-      .controller('CotacaoProdutoController', CotacaoProdutoController);
-  
-    CotacaoProdutoController.$inject = [
-      '$uibModal',
-      '$uibModalInstance',
-      'Restangular',
-      'toastr',
-      'produto'
-    ];
-  
-    function CotacaoProdutoController($uibModal, $uibModalInstance, Restangular, toastr, produto) {
-      var vm = this;
-      vm.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
-      vm.dataInicio = new Date();
-      vm.dataFinal = new Date();
-      vm.cotacaoModel = {
-        cotacao: {
-            dataInicio: new Date(),
-            dataFinal: new Date(),
-            quantidade: 1,
-            produto: produto,
-            usuario: produto.usuario,
-        },
-        fornecedores: []
-      }
-      vm.listaFornecedores = [];
+  constructor($uibModalInstance, Restangular, toastrService, produto) {
+    this.$uibModalInstance = $uibModalInstance;
+    this.Restangular = Restangular;
+    this.toastrService = toastrService;
+    this.produto = produto;
+    this.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
+    this.dataInicio = new Date();
+    this.dataFinal = new Date();
+    this.cotacaoModel = {
+      cotacao: {
+        dataInicio: new Date(),
+        dataFinal: new Date(),
+        quantidade: 1,
+        produto: produto,
+        usuario: produto.usuario,
+      },
+      fornecedores: []
+    }
+    this.listaFornecedores = [];
+  }
 
-      vm.buscarTodosFornecedores = function() {
-        var fornecedores = Restangular.all("usuarios/getAllFornecedores");
-        fornecedores.post().then(function(response) {
-          if (response.sucesso) {
-            vm.listaFornecedores = response.objeto;
-          } else {
-            toastr.error(response.mensagem);
-          }
-        });
+  buscarTodosFornecedores() {
+    let toastrService = this.toastrService;
+    let fornecedores = Restangular.all("usuarios/getAllFornecedores");
+    fornecedores.post().then((response) => {
+      if (response.sucesso) {
+        this.listaFornecedores = response.objeto;
+      } else {
+        toastrService.erro(response.mensagem);
       }
+    });
+  }
 
-      vm.removerFornecedor = function(item) {
-        vm.listaFornecedores.map(function(fornecedor) {
-            return fornecedor.email !== item.email;
-        });
-      }
+  removerFornecedor(item) {
+    this.listaFornecedores.map(function(fornecedor) {
+        return fornecedor.email !== item.email;
+    });
+  }
+}
+
+      
+
+     
 
       vm.atualizarStatusCotadoProduto = function(produto) {
           produto.cotado = true;
@@ -74,5 +71,10 @@
 
       vm.buscarTodosFornecedores();
     }
-  })();
+CotacaoProdutoController.$inject = [
+  '$uibModalInstance',
+  'Restangular',
+  'toastrService',
+  'produto'
+];
   

@@ -19,7 +19,7 @@ export default class NovoUsuarioController {
       return;
     }
     let toastrService = this.toastrService;
-    let criarUsuario = this.Restangular.all("usuarios/criar");
+    let criarUsuario = this.Restangular.all("usuarios");
     criarUsuario.post(this.usuario).then((retornoCadastro) => {
       retornoCadastro.sucesso ? toastrService.sucesso(retornoCadastro.mensagem) : toastrService.erro(retornoCadastro.mensagem);
     }),

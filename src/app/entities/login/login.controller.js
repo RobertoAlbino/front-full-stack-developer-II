@@ -15,7 +15,7 @@ export default class LoginController {
       return;
     }
     
-    let logar = this.Restangular.all("login/logar");
+    let logar = this.Restangular.all("usuarios/login");
     logar.post(this.login).then((retornoLogin) => {
       if (retornoLogin.sucesso) {
         this.armazenarLocalmenteUsuarioLogado(retornoLogin);

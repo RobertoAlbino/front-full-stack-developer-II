@@ -86,25 +86,25 @@ export default class GerenciarProdutosController {
         });
     }
 
-    // vm.abrirModalCotacao = function(produto) {
-    //     if (produto.cotado) {
-    //         toastr.error("O produto já está em cotação.");
-    //         return;
-    //     }
-    //     $uibModal.open({
-    //         ariaLabelledBy: 'Iniciar cotação',
-    //         ariaDescribedBy: 'modal-body',
-    //         templateUrl: 'app/entities/produto/cotacao-produto/cotacao-produto.html',
-    //         controller: 'CotacaoProdutoController',
-    //         controllerAs: 'vm',
-    //         size: 'md',
-    //         resolve: {
-    //             produto: function() {
-    //                 return produto;
-    //             }
-    //         }
-    //     });
-    // }
+    abrirModalCotacao(produto) {
+        if (produto.cotado) {
+            this.toastrService.erro("O produto já está em cotação.");
+            return;
+        }
+        this.$uibModal.open({
+            ariaLabelledBy: 'Iniciar cotação',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'app/entities/produto/cotacao-produto/cotacao-produto.html',
+            controller: 'CotacaoProdutoController',
+            controllerAs: 'vm',
+            size: 'md',
+            resolve: {
+                produto: function() {
+                    return produto;
+                }
+            }
+        });
+    }
 }
 GerenciarProdutosController.$inject = [
     '$uibModal',
