@@ -7,6 +7,10 @@ export default class LoginController {
     this.$location = $location;
     this.Restangular = Restangular;
     this.toastrService = toastrService;
+    this.login = {
+      email: "",
+      senha: ""
+    }
   }
 
   logar() {
@@ -19,10 +23,13 @@ export default class LoginController {
     logar.post(this.login).then((retornoLogin) => {
       if (retornoLogin.sucesso) {
         this.armazenarLocalmenteUsuarioLogado(retornoLogin);
+        console.log(retornoLogin);
         retornoLogin.objeto.perfil === "USUARIO" ? this.$location.path('menu-usuario') : this.$location.path('menu-fornecedor');
       } else {
         this.toastrService.erro(retornoLogin.mensagem);
       }
+    }).catch(data => {
+      this.toastrService.erro(data.xhrStatus);
     });
   }
 

@@ -8,7 +8,6 @@ export default class NovoUsuarioController {
       email: "",
       telefone: "",
       senha: "",
-      segundaSenha: "",
       perfil: 0
     }
   }
@@ -22,18 +21,17 @@ export default class NovoUsuarioController {
     let criarUsuario = this.Restangular.all("usuarios");
     criarUsuario.post(this.usuario).then((retornoCadastro) => {
       retornoCadastro.sucesso ? toastrService.sucesso(retornoCadastro.mensagem) : toastrService.erro(retornoCadastro.mensagem);
-    }),
-    (error) => {
-      toastrService.erro(error);
-    };
+    }).catch(error => {
+      toastrService.erro(error.xhrStatus);
+    });
   }
 
   senhaValida() {
-    return this.usuario.senha === this.usuario.segundaSenha ? true : false;
+    return this.usuario.senha === this.segundaSenha ? true : false;
   }
 }
 NovoUsuarioController.$inject = [
   'Restangular',
-  'toastrService',
+  'toastrService'
 ];
 
